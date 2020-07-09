@@ -72604,12 +72604,18 @@ var CreateEmployee = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       event.preventDefault();
-      var formData = {};
+      var formData = new FormData();
 
       for (var field in this.refs) {
-        formData[field] = this.refs[field].value;
+        if (field === 'profile_image') {
+          // formData[field] = this.refs.profile_image.files[0];
+          formData.append(field, this.refs.profile_image.files[0]);
+        } else {
+          formData.append(field, this.refs[field].value); // formData[field] = this.refs[field].value;
+        }
       }
 
+      console.log(formData);
       _services_api_service__WEBPACK_IMPORTED_MODULE_2__["default"].createEmployee(formData).then(function (res) {
         if (res.data.type && res.data.type === 'Buffer') {
           alert("Empty user was created. Please fill again the form.");
@@ -72638,7 +72644,8 @@ var CreateEmployee = /*#__PURE__*/function (_Component) {
         }
       }, "Employees List")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
-        className: _CreateEmployee_css__WEBPACK_IMPORTED_MODULE_3___default.a.CreateEmployee
+        className: _CreateEmployee_css__WEBPACK_IMPORTED_MODULE_3___default.a.CreateEmployee,
+        encType: "multipart/form-data"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_1___default.a["form-group"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -72722,7 +72729,7 @@ var employee = function employee(props) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: _node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_1___default.a['card-img-top'],
-    src: props.employee.profile_image ? props.employee.profile_mage : _assets_images_default_person_png__WEBPACK_IMPORTED_MODULE_2___default.a
+    src: props.employee.profile_image ? props.employee.profile_image : _assets_images_default_person_png__WEBPACK_IMPORTED_MODULE_2___default.a
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: _node_modules_bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_1___default.a['card-body']
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
@@ -72885,7 +72892,7 @@ var ApiService = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/aleks.aleksandrov/Projects/rocket-science/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/aleks.aleksandrov/Projects/laravel-react/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

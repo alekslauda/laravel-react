@@ -23,12 +23,20 @@ class CreateEmployee extends Component {
 
       handleSubmit(event) {
             event.preventDefault();
-            const formData = {};
+
+            let formData = new FormData();
 
             for (const field in this.refs) {
-                formData[field] = this.refs[field].value;
-            }
+                if (field === 'profile_image') {
+                    // formData[field] = this.refs.profile_image.files[0];
+                    formData.append(field, this.refs.profile_image.files[0]);
+                } else {
+                    formData.append(field, this.refs[field].value);
+                    // formData[field] = this.refs[field].value;
+                }
 
+            }
+            console.log(formData);
             ApiService.createEmployee(formData)
             .then(res => {
                 if (res.data.type && res.data.type === 'Buffer') {
@@ -53,7 +61,7 @@ class CreateEmployee extends Component {
                     <a href="#" onClick={() => this.props.history.push('/employees')}>Employees List</a>
                 </div>
                 <div>
-                <form onSubmit={this.handleSubmit} className={classes.CreateEmployee}>
+                <form onSubmit={this.handleSubmit} className={classes.CreateEmployee} encType="multipart/form-data">
                     <div className={globalStyles["form-group"]}>
                         <label htmlFor="a">Name</label>
                         <input ref="employee_name" type="text" className={globalStyles['form-control']} id="a" aria-describedby="emailHelp" />

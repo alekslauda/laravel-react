@@ -10,7 +10,7 @@ const employee = ( props ) => {
 
         <div className={globalStyles['col-md-6']} key={props.employee.id}>
         <div className={globalStyles.card} style={{width: '18rem', marginBottom: '50px'}} >
-            <img className={globalStyles['card-img-top']} src={props.employee.profile_image ? props.employee.profile_mage : defaultPerson}  />
+            <img className={globalStyles['card-img-top']} src={props.employee.profile_image ? props.employee.profile_image : defaultPerson}  />
             <div className={globalStyles['card-body']}>
                 <h5 className={globalStyles['card-title']}>{props.employee.employee_name}</h5>
                 <p className={globalStyles['card-text']}>

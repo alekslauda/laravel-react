@@ -3,6 +3,7 @@
 namespace App\Actions\Employees;
 
 use App\Services\ApiService as Api;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeesAction {
 
@@ -28,7 +29,17 @@ class EmployeesAction {
             $this->sort($dto->sort);
         }
 
-        return $this->employees;
+        $data = [];
+
+        foreach($this->employees as $employee) {
+
+            if($employee['profile_image']) {
+                $employee['profile_image'] = asset(Storage::disk('avatars')->url($employee['profile_image']));
+            }
+            $data[] = $employee;
+        }
+
+        return $data;
     }
 
     private function search($keyword)

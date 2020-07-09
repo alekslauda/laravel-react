@@ -7,6 +7,8 @@ use App\Actions\Employees\EmployeesActionDTO;
 use App\Services\ApiService;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class EmployeeController extends BaseController
@@ -20,6 +22,12 @@ class EmployeeController extends BaseController
 
     public function create(Request $request, ApiService $service)
     {
+        $path = null;
+        if ($request->hasFile('profile_image')) {
+            $path = $request->file('profile_image')->store('avatars', 'public');
+        }
+        $request = new Request($request->all());
+        $request->merge(['profile_image' => $path]);
         return response()->json($service->create($request->all()), 200);
     }
 
