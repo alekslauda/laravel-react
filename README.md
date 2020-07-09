@@ -8,3 +8,4 @@ SET UP
 6. run "php artisan storage:link"
 7. run "php artisan serve"
 8. open your localhost (http://127.0.0.1:8000/)
+9. open new terminal tab, navigate to the project and run "phpunit" to check tests
